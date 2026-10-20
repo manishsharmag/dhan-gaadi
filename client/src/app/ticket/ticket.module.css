@@ -1,0 +1,314 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  padding: 2.5rem 1rem;
+}
+
+.ticketWrapper {
+  max-width: 580px;
+  width: 100%;
+  position: relative;
+}
+
+.ticket {
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(0, 77, 67, 0.12), 0 0 1px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.ticketHeader {
+  background: linear-gradient(135deg, #004d43 0%, #008574 100%);
+  color: #ffffff;
+  padding: 1.75rem 2rem;
+  position: relative;
+}
+
+.brandRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.brandLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.brandLogo span {
+  font-size: 1.5rem;
+}
+
+.brandLogo strong {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+
+.statusBadge {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+}
+
+.routeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.cityCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.cityCol.right {
+  align-items: flex-end;
+}
+
+.cityCode {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.cityName {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 0.25rem;
+}
+
+.busIconWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  color: #ffbd00;
+  font-size: 1.5rem;
+}
+
+.ticketBody {
+  padding: 1.75rem 2rem;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.infoItem.right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.infoLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.infoValue {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.seatsBadge {
+  color: #008574;
+  font-size: 1rem;
+}
+
+.fareValue {
+  color: #008574;
+  font-size: 1.15rem;
+}
+
+.perforation {
+  position: relative;
+  height: 28px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.notchLeft,
+.notchRight {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.notchLeft {
+  left: -12px;
+}
+
+.notchRight {
+  right: -12px;
+}
+
+.dashedLine {
+  width: 100%;
+  margin: 0 1.5rem;
+  border-top: 2px dashed #cbd5e1;
+}
+
+.pnrSection {
+  padding: 1.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #ffffff;
+}
+
+.pnrBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(0, 133, 116, 0.08);
+  padding: 0.6rem 1.25rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.pnrBox:hover {
+  background: rgba(0, 133, 116, 0.15);
+  transform: translateY(-1px);
+}
+
+.pnrCode {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #004d43;
+  font-family: monospace;
+}
+
+.qrContainer {
+  background: #f8fafc;
+  padding: 0.75rem;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1.25rem;
+}
+
+.qrImg {
+  width: 140px;
+  height: 140px;
+  display: block;
+}
+
+.ticketActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.btnPrimary {
+  background: #008574;
+  color: #ffffff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnPrimary:hover {
+  background: #004d43;
+}
+
+.btnOutlined {
+  background: transparent;
+  color: #008574;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  border: 1.5px solid #008574;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnOutlined:hover {
+  background: rgba(0, 133, 116, 0.08);
+}
+
+.ticketFooter {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 1.25rem;
+  line-height: 1.4;
+}
+
+@media print {
+  .page {
+    background: transparent;
+    padding: 0;
+  }
+  .ticketActions,
+  .ticketFooter {
+    display: none;
+  }
+  .ticket {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
+
+@media (max-width: 540px) {
+  .ticketHeader,
+  .ticketBody,
+  .pnrSection {
+    padding: 1.25rem;
+  }
+  .cityCode {
+    font-size: 1.4rem;
+  }
+}

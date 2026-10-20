@@ -1,87 +1,28 @@
-const mongoose = require("mongoose");
-const { v1 } = require("uuid");
-const crypto = require("crypto");
+const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      trim: true,
-      required: true,
-      maxlength: 32,
-    },
-    address: {
-      type: String,
-      trim: true,
-      required: true,
-      maxlength: 32,
-    },
-    email: {
-      type: String,
-      trim: true,
-    },
-    info: {
-      type: String,
-      trim: true,
-      maxlength: 32,
-    },
-    phone: {
-      type: Number,
-      max: 9999999999,
-      required: true,
-    },
-    hashed_password: {
-      type: String,
-      required: true,
-    },
-    photo: {
-      type: String,
-    },
-    resetPasswordLink: {
-      data: String,
-      default: "",
-    },
-    salt: String,
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
+const userSchema = new mongoose.Schema({
+  name: { type: String, default: '' },
+  mobile: { 
+    type: String, 
+    required: true, 
+    unique: true,
+    match: [/^[6-9]\d{9}$/, 'Please enter a valid Indian mobile number']
   },
-  { timestamps: true }
-);
-
-// virtual field
-userSchema
-  .virtual("password")
-  .set(function (password) {
-    // create temporary variable called _password
-    this._password = password;
-    // generate a timestamp
-    this.salt = v1();
-    // encryptPassword()
-    this.hashed_password = this.encryptPassword(password);
-  })
-  .get(function () {
-    return this._password;
-  });
-
-// methods
-userSchema.methods = {
-  authenticate: function (plainText) {
-    return this.encryptPassword(plainText) === this.hashed_password;
+  role: { 
+    type: String, 
+    enum: ['user', 'admin', 'superadmin', 'owner', 'conductor'], 
+    default: 'user' 
   },
-
-  encryptPassword: function (password) {
-    if (!password) return "";
-    try {
-      return crypto
-        .createHmac("sha1", this.salt)
-        .update(password)
-        .digest("hex");
-    } catch (err) {
-      return "";
-    }
+  password: { 
+    type: String, 
+    required: true,
+    select: false 
   },
-};
+  photo: { type: String, default: '' },
+  isActive: { type: Boolean, default: true },
+}, { timestamps: true });
 
-module.exports = mongoose.model("User", userSchema);
+// Index for OTP rate limiting lookups
+userSchema.index({ mobile: 1 });
+
+module.exports = mongoose.model('User', userSchema);

@@ -1,27 +1,57 @@
-const path= require("path");
-const multer= require("multer");
+const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
 
-//storage management for the file
-//that will be uploaded
-const busImage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './public/uploads/busimage')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now()  + path.extname(file.originalname))
-    }
-  })
+const busDir = path.join(__dirname, '..', 'public', 'uploads', 'busimage');
+if (!fs.existsSync(busDir)) {
+  fs.mkdirSync(busDir, { recursive: true });
+}
 
-  const ownerAvatar = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './public/uploads/ownerAvatar')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now()  + path.extname(file.originalname))
-    }
-  })
+const ownerDir = path.join(__dirname, '..', 'public', 'uploads', 'ownerAvatar');
+if (!fs.existsSync(ownerDir)) {
+  fs.mkdirSync(ownerDir, { recursive: true });
+}
 
- //management of the storage and the file that will be uploaded 
- //.single expects the name of the file input field
-exports.uploadBusImage= multer({storage: busImage}).single("image");
-exports.uploadOwnerAvatar= multer({storage: ownerAvatar}).single("photo");
+const busImageStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, busDir);
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname || '') || '.jpg';
+    cb(null, 'bus-' + Date.now() + '-' + Math.round(Math.random() * 1E9) + ext);
+  }
+});
+
+const ownerAvatarStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, ownerDir);
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname || '') || '.jpg';
+    cb(null, 'avatar-' + Date.now() + ext);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    !file.mimetype ||
+    file.mimetype.startsWith('image/') ||
+    file.mimetype === 'application/octet-stream' ||
+    /\.(jpe?g|png|webp|gif|bmp|heic|heif)$/i.test(file.originalname || '')
+  ) {
+    return cb(null, true);
+  }
+  cb(new Error('Only image files are allowed'));
+};
+
+exports.uploadBusImage = multer({
+  storage: busImageStorage,
+  limits: { fileSize: 10 * 1024 * 1024 },
+  fileFilter
+}).single("image");
+
+exports.uploadOwnerAvatar = multer({
+  storage: ownerAvatarStorage,
+  limits: { fileSize: 10 * 1024 * 1024 },
+  fileFilter
+}).single("photo");
